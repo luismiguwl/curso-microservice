@@ -1,0 +1,14 @@
+package com.luis.pessoas.models;
+
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
+public enum Destino {
+	RELACAO_DDD_ESTADO("dados\\relacao-ddd-estado.csv");
+	
+	private String destino;
+	
+	public String get() {
+		return destino;
+	}
+}

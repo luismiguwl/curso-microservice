@@ -1,0 +1,57 @@
+package com.luis.pessoas.models;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import com.luis.pessoas.geradores.GeradorDeCpf;
+import com.luis.pessoas.geradores.GeradorDeRg;
+import com.luis.pessoas.geradores.GeradorDeTelefone;
+
+import lombok.Data;
+
+@Data
+@Entity
+@Table(name = "pessoas")
+public class Pessoa {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+    private String nome;
+    private String sexo;
+    private String estado;	
+    
+    @Transient
+    private CPF cpf = new GeradorDeCpf().get();
+    
+    @Transient
+    private RG rg = new GeradorDeRg().get();
+    
+    @Transient
+    private Telefone telefone = new GeradorDeTelefone().get(getEstado());
+    
+    public String getSexo() {
+    	return this.sexo.equals("F") ? Sexo.FEMININO.get() : Sexo.MASCULINO.get();
+    }
+    
+    public String getCpf() {
+    	return cpf.getValor();
+    }
+    
+    public String getEstado() {
+    	return cpf.getEstado();
+    }
+    
+    public String getRg() {
+    	return rg.getRg();
+    }
+    
+    public String getTelefone() {
+    	return telefone.getNumero();
+    }
+}

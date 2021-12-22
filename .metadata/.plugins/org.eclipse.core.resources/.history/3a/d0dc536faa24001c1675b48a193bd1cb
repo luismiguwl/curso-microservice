@@ -1,0 +1,44 @@
+package br.com.luis.apifilmes.models.utils;
+
+import java.util.List;
+
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import br.com.luis.apifilmes.models.Diretor;
+
+import static br.com.luis.apifilmes.models.utils.DiretorUtils.*;
+
+class DiretorUtilsTest {
+	private List<Diretor> diretores;
+	
+	@BeforeEach
+	public void setUp() {
+		Diretor d1 = new Diretor("Christopher Nolan", 8);
+		Diretor d2 = new Diretor("Jay Oliva", 5);
+		Diretor d3 = new Diretor("Roberto Santucci", 4);
+		Diretor d4 = new Diretor("Gaspar Noé", 1);
+		
+		diretores = List.of(d1, d2, d3, d4);
+	}
+
+	@Test
+	@DisplayName("Deve retornar uma string com o nome dos diretores separados por espaço")
+	public void deveRetornarUmaStringComONomeDosDiretoresSeparadosPorEspaco() {
+		Diretor d1 = diretores.get(0), d2 = diretores.get(1);
+		
+		String linhaEsperada = "Christopher Nolan Jay Oliva";
+		String linhaRetornada = mesclarTodosOsDiretores(List.of(d1, d2));
+		
+		Assertions.assertThat(linhaRetornada).isEqualTo(linhaEsperada);
+	}
+	
+	@Test
+	public void deveRetornarUmNumeroPositivoQuandoSolicitarAQuantidadeDeFilmesDeUmDiretor() {
+		int quantidadeDeFilmes = getQuantidadeDeFilmesVistos(diretores.get(0));
+		Assertions.assertThat(quantidadeDeFilmes).isPositive();
+	}
+
+}

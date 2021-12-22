@@ -1,0 +1,57 @@
+package com.luis.geradordepessoas.resources;
+
+import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+import static com.luis.geradordepessoas.resources.Utils.*;
+
+public class UtilsTest {
+	
+	@Test
+	public void getNumeroAleatorioDentroDoRangeTest() {
+		int resultado = getNumeroAleatorio(10);
+		assertThat(resultado).isBetween(0, 9);
+	}
+
+	@Test
+	public void getNumeroAleatorioMenorOuIgualAZeroTest() {
+		assertThrows(IllegalArgumentException.class, () -> {
+			getNumeroAleatorio(0);
+			getNumeroAleatorio(-1);
+		});
+	}
+
+	@Test
+	public void obterNomeDoEstadoBaseadoNaUfComUfInvalidaTest() {
+		String ufInvalida = "CPTO";
+		assertThrows(UfInvalidaException.class, () -> obterNomeDoEstadoBaseadoNaUf(ufInvalida));
+	}
+
+	@Test
+	public void obterNomeDoEstadoBaseadoNaUfComUfContendoMaisDeDoisCaracteresTest() {
+		String ufInvalida = "CPTO";
+		assertThrows(UfInvalidaException.class, () -> obterNomeDoEstadoBaseadoNaUf(ufInvalida));
+	}
+
+	@Test
+	public void obterNomeDoEstadoBaseadoNaUfComUfValidaTest() {
+		String ufValida = "ES";
+		String estadoRecebido = obterNomeDoEstadoBaseadoNaUf(ufValida);
+
+		assertThat(estadoRecebido).isEqualTo("Espírito Santo");
+	}
+
+	@Test
+	public void validarUfComLengthDiferenteDeDois() {
+		String ufInvalida = "CPTO";
+		assertThrows(UfInvalidaException.class, () -> validarUf(ufInvalida));
+	}
+
+	@Test
+	public void validarUfComUfInvalida() {
+		String ufInvalida = "VB";
+		assertThrows(UfInvalidaException.class, () -> validarUf(ufInvalida));
+	}
+}

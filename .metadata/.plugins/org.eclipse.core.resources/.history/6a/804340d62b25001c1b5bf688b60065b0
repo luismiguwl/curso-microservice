@@ -1,0 +1,14 @@
+package com.luis.pessoas.models;
+
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
+public enum Sexo {
+	MASCULINO("Masculino"), FEMININO("Feminino");
+	
+	private String sexo;
+	
+	public String get() {
+		return sexo;
+	}
+}

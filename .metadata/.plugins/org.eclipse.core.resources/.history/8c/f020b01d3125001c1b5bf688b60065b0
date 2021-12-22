@@ -1,0 +1,42 @@
+package com.luis.pessoas.resources;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.luis.pessoas.models.Pessoa;
+import com.luis.pessoas.repositories.PessoaRepository;
+import com.luis.pessoas.utils.Utils;
+
+@RequestMapping("/pessoas")
+@RestController
+public class PessoaController {
+	@Autowired
+	private PessoaRepository pessoaRepository;
+	
+	@GetMapping("/aleatoria")
+	public ResponseEntity<Pessoa> obterPessoaAleatoria() {
+		List<Pessoa> pessoas = pessoaRepository.obterTodasAsPessoas();
+		System.out.println(pessoas.size());
+		Pessoa pessoaAleatoria = Utils.obterPessoaAleatoria(pessoas);
+		
+		return ResponseEntity.ok(pessoaAleatoria);
+	}
+	
+	@GetMapping("/sexo")
+	public ResponseEntity<Pessoa> obterPessoaAleatoriaPorSexo(@RequestParam String letraDoSexo) {
+		List<Pessoa> pessoas = pessoaRepository.obterTodasAsPessoas();
+		letraDoSexo = letraDoSexo.toLowerCase();
+		
+		pessoas = Utils.filtrarPessoasPeloSexo(pessoas, letraDoSexo);
+		
+		Pessoa pessoaAleatoria = Utils.obterPessoaAleatoria(pessoas);
+		
+		return ResponseEntity.ok(pessoaAleatoria);
+	}
+}

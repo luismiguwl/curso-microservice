@@ -1,0 +1,12 @@
+package br.com.luis.apifilmes.models.utils;
+
+import org.junit.jupiter.api.Test;
+
+class DiretorUtilsTest {
+
+	@Test
+	void test() {
+		
+	}
+
+}

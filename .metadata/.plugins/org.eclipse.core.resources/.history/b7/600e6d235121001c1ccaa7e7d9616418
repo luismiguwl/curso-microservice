@@ -1,0 +1,21 @@
+package br.com.luis.apifilmes.utils;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static br.com.luis.apifilmes.utils.Calculadora.*;
+
+import org.junit.jupiter.api.Test;
+
+public class CalculadoraTest {
+
+    @Test
+    public void deveRetornar50() {
+        int porcentagem = calcularPorcentagem(100, 50);
+        assertEquals(50, porcentagem);
+    }
+    
+    @Test
+    public void deveRetornarIllegalArgumentExceptionSeRangeForZero() {
+//    	int numeroAleatorio = getNumeroAleatorio(0);
+    	assertThrows(IllegalArgumentException.class, () -> getNumeroAleatorio(0));
+    }
+}

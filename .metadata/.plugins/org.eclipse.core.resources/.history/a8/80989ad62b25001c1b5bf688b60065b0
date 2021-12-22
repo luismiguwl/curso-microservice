@@ -1,0 +1,12 @@
+package com.luis.pessoas.models;
+
+import lombok.Data;
+
+@Data
+public class RG {
+	private String rg;
+	
+	public String get() {
+		return this.rg;
+	}
+}
