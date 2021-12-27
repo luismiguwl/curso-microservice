@@ -1,4 +1,4 @@
-package com.luis.payroll.entities.services;
+package com.luis.payroll.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
